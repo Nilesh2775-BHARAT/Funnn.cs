@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Intergalactic Bureaucracy Department</title>
+
+<style>
+:root{
+    --bg:#07111f;
+    --panel:#0f1d33;
+    --panel2:#15294a;
+    --accent:#00f5ff;
+    --accent2:#ff7b00;
+    --text:#e9f7ff;
+    --danger:#ff4f4f;
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family: "Trebuchet MS", sans-serif;
+}
+
+body{
+    background:
+        radial-gradient(circle at top right,#1d3563 0%,transparent 25%),
+        radial-gradient(circle at bottom left,#33124f 0%,transparent 30%),
+        var(--bg);
+    color:var(--text);
+    min-height:100vh;
+}
+
+header{
+    text-align:center;
+    padding:30px;
+    border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+header h1{
+    color:var(--accent);
+    font-size:3rem;
+    text-shadow:0 0 20px var(--accent);
+}
+
+header p{
+    opacity:.8;
+    margin-top:10px;
+}
+
+.container{
+    width:min(1000px,90%);
+    margin:30px auto;
+}
+
+.card{
+    background:linear-gradient(180deg,var(--panel),var(--panel2));
+    border:1px solid rgba(0,245,255,.2);
+    border-radius:18px;
+    padding:25px;
+    box-shadow:0 0 25px rgba(0,245,255,.12);
+}
+
+.notice{
+    background:#2c143d;
+    border-left:5px solid #ff42d0;
+    padding:15px;
+    margin-bottom:25px;
+    border-radius:8px;
+}
+
+.notice strong{
+    color:#ff77e5;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+@media(max-width:800px){
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+label{
+    display:block;
+    margin-bottom:6px;
+    font-size:.9rem;
+    color:#9ceeff;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#081321;
+    color:white;
+    border:1px solid rgba(255,255,255,.08);
+}
+
+textarea{
+    min-height:100px;
+}
+
+.full{
+    grid-column:1/-1;
+}
+
+.fine-print{
+    margin-top:25px;
+    font-size:.8rem;
+    opacity:.7;
+}
+
+.submit-btn{
+    margin-top:25px;
+    width:100%;
+    padding:18px;
+    font-size:1.1rem;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    color:#001018;
+    font-weight:bold;
+    background:linear-gradient(90deg,var(--accent),#8affff);
+    transition:.3s;
+}
+
+.submit-btn:hover{
+    transform:translateY(-2px);
+}
+
+.hidden{
+    display:none;
+}
+
+/* LOADING */
+
+.loading-screen{
+    text-align:center;
+    padding:60px 20px;
+}
+
+.spinner{
+    width:140px;
+    height:140px;
+    border-radius:50%;
+    border:10px solid rgba(255,255,255,.1);
+    border-top-color:var(--accent);
+    margin:0 auto 25px;
+    animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+.loading-text{
+    font-size:1.4rem;
+    color:var(--accent);
+    min-height:40px;
+}
+
+.progress{
+    width:100%;
+    height:24px;
+    background:#081321;
+    border-radius:50px;
+    overflow:hidden;
+    margin-top:25px;
+}
+
+.bar{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+}
+
+/* REJECTION */
+
+.receipt{
+    background:#fff7ef;
+    color:#111;
+    max-width:700px;
+    margin:auto;
+    padding:30px;
+    border-radius:12px;
+    position:relative;
+}
+
+.stamp{
+    position:absolute;
+    top:40px;
+    right:30px;
+    border:5px solid red;
+    color:red;
+    padding:10px 20px;
+    transform:rotate(-15deg);
+    font-size:2rem;
+    font-weight:bold;
+}
+
+.receipt h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.reason{
+    background:#ffe6e6;
+    padding:15px;
+    border-left:5px solid red;
+    margin:20px 0;
+}
+
+.footer{
+    text-align:center;
+    margin-top:25px;
+    font-style:italic;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>INTERGALACTIC BUREAUCRACY DEPARTMENT</h1>
+    <p>Serving the Universe Since Before Time Was Properly Documented</p>
+</header>
+
+<div class="container">
+
+    <!-- FORM -->
+    <div id="formSection" class="card">
+
+        <div class="notice">
+            <strong>Warning:</strong>
+            Fields marked * are mandatory. All fields are marked *.
+        </div>
+
+        <form id="cosmicForm">
+
+            <div class="form-grid">
+
+                <div>
+                    <label>Alien Registration Number *</label>
+                    <input required>
+                </div>
+
+                <div>
+                    <label>Galaxy of Origin *</label>
+                    <input required>
+                </div>
+
+                <div>
+                    <label>Previous Galaxy of Origin *</label>
+                    <input>
+                </div>
+
+                <div>
+                    <label>Backup Galaxy of Origin *</label>
+                    <input>
+                </div>
+
+                <div>
+                    <label>Planetary Tax Classification *</label>
+                    <input>
+                </div>
+
+                <div>
+                    <label>Favorite Moon *</label>
+                    <input>
+                </div>
+
+                <div>
+                    <label>Number of Tentacles (Estimated) *</label>
+                    <input type="number">
+                </div>
+
+                <div>
+                    <label>Time Travel Incidents (Last 500 Years) *</label>
+                    <input type="number">
+                </div>
+
+                <div>
+                    <label>Quantum Passport ID *</label>
+                    <input>
+                </div>
+
+                <div>
+                    <label>Backup Reality Number *</label>
+                    <input>
+                </div>
+
+                <div class="full">
+                    <label>Proof of Existence *</label>
+                    <textarea></textarea>
+                </div>
+
+                <div class="full">
+                    <label>Proof of Non-Existence *</label>
+                    <textarea></textarea>
+                </div>
+
+                <div class="full">
+                    <label>Severity of Inconvenience *</label>
+                    <select>
+                        <option>Stubbed Toe</option>
+                        <option>Mild Annoyance</option>
+                        <option>Lost Space Luggage</option>
+                        <option>Temporal Paradox</option>
+                        <option>Planetary Embarrassment</option>
+                        <option>Black Hole in Kitchen</option>
+                        <option>Supernova</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <p class="fine-print">
+                By submitting this form, you confirm that you are a legally recognized life-form,
+                non-life-form, energy cloud, or administrative anomaly.
+            </p>
+
+            <button class="submit-btn">
+                SUBMIT TO COSMIC PROCESSING
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- LOADING -->
+    <div id="loadingSection" class="card loading-screen hidden">
+
+        <div class="spinner"></div>
+
+        <div id="loadingText" class="loading-text">
+            Translating to Martian...
+        </div>
+
+        <div class="progress">
+            <div id="bar" class="bar"></div>
+        </div>
+
+    </div>
+
+    <!-- RECEIPT -->
+    <div id="receiptSection" class="hidden">
+
+        <div class="receipt">
+            <div class="stamp">DENIED</div>
+
+            <h2>INTERGALACTIC REJECTION RECEIPT</h2>
+
+            <p><strong>Application Status:</strong> Rejected</p>
+
+            <div class="reason">
+                <strong>Primary Reason:</strong><br>
+                Application rejected due to use of an unauthorized Cosmic Font.
+            </div>
+
+            <h3>Additional Findings</h3>
+
+            <ul>
+                <li>Signature missing from alternate timeline.</li>
+                <li>Section 84B requires notarization by one sentient nebula.</li>
+                <li>Applicant failed to provide backup reality.</li>
+                <li>Universe checksum mismatch detected.</li>
+                <li>Alien Registration Number was only 46 digits long.</li>
+            </ul>
+
+            <div class="footer">
+                Please reapply in 3–700 business centuries.
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+const form = document.getElementById("cosmicForm");
+const formSection = document.getElementById("formSection");
+const loadingSection = document.getElementById("loadingSection");
+const receiptSection = document.getElementById("receiptSection");
+
+const loadingText = document.getElementById("loadingText");
+const bar = document.getElementById("bar");
+
+const messages = [
+    "Translating to Martian...",
+    "Consulting Ancient Space Intern...",
+    "Verifying Carbon-Based Status...",
+    "Losing your file in a Black Hole...",
+    "Recovering file from Black Hole...",
+    "Awaiting Committee #47,882...",
+    "Checking Cosmic Font Compliance...",
+    "Almost Finished...",
+    "Actually Not Finished..."
+];
+
+form.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    formSection.classList.add("hidden");
+    loadingSection.classList.remove("hidden");
+
+    let progress = 0;
+    let index = 0;
+
+    const interval = setInterval(() => {
+
+        progress += Math.random() * 18;
+
+        if(progress > 100){
+            progress = 100;
+        }
+
+        bar.style.width = progress + "%";
+
+        if(index < messages.length){
+            loadingText.textContent = messages[index];
+            index++;
+        }
+
+        if(progress >= 100){
+
+            clearInterval(interval);
+
+            setTimeout(() => {
+                loadingSection.classList.add("hidden");
+                receiptSection.classList.remove("hidden");
+            }, 1500);
+        }
+
+    }, 800);
+});
+</script>
+
+</body>
+</html>
